@@ -1,0 +1,8 @@
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/green_bottle"
+    android:fromDegrees="0"
+    android:toDegrees="360"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:duration="1500"
+    android:repeatCount="infinite" />
