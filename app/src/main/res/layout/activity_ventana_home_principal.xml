@@ -1,0 +1,65 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Ventana_home_principal"
+    android:background="@drawable/fondo_madera">
+
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/botellaImg"
+        android:layout_width="210dp"
+        android:layout_height="296dp"
+        android:src="@drawable/botella_verde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnParpadeante"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/circular_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botellaImg"
+        app:layout_constraintVertical_bias="0.427" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PRESIONAME"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnParpadeante"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/countdown_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:textColor="#FF4800"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/botellaImg"
+
+        app:layout_constraintEnd_toEndOf="@id/botellaImg"
+        app:layout_constraintStart_toStartOf="@id/botellaImg"
+        app:layout_constraintTop_toTopOf="@id/botellaImg"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
