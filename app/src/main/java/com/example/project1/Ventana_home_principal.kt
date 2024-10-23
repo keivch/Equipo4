@@ -1,5 +1,6 @@
 package com.example.project1
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -20,6 +21,11 @@ class Ventana_home_principal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_ventana_home_principal)
+        // Incluir el fragment de la toolbar
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.toolbar_container, ToolbarFragment())
+            .commit()
+
 
         val btnParpa = findViewById<AppCompatButton>(R.id.btnParpadeante)
         val animar: Animation = AnimationUtils.loadAnimation(this,R.anim.animacion_circulo_parpadeante)
@@ -44,11 +50,11 @@ class Ventana_home_principal : AppCompatActivity() {
 
 
 
-        val mediaPlayer = MediaPlayer.create(this, R.raw.musica_espera)
 
-        // Reproducir el audio de fondo en bucle
-        mediaPlayer.isLooping = true
-        mediaPlayer.start()
+
+        // En Ventana_home_principal, para iniciar Toolbar_activity
+
+
 
     }
 
