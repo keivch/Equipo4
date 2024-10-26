@@ -53,7 +53,8 @@ class ToolbarFragment : Fragment() {
         }
 
         iconChallenges.setOnClickListener {
-            // Navegar a la ventana de retos
+            val intent = Intent(requireContext(), RetosActivity::class.java)
+            startActivity(intent)
         }
 
         iconShare.setOnClickListener {
