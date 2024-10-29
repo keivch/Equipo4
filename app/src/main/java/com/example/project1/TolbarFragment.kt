@@ -61,7 +61,7 @@ class ToolbarFragment : Fragment() {
             // Compartir la app
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, "¡Descarga esta app!")
+                putExtra(Intent.EXTRA_TEXT, "App pico botella \n¡¡Solo los valientes lo juegan!! \nhttps://play.google.com/store/apps/details?id=com.nequi.MobileApp&hl=es_419&gl=es")
             }
             startActivity(Intent.createChooser(shareIntent, "Compartir vía"))
         }

@@ -35,9 +35,7 @@
         android:id="@+id/icon_challenges"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_challenges"
-
-        android:tint="@color/orange"
+        android:src="@drawable/ic_challenge"
         android:layout_margin="8dp"/>
 
     <!-- Ícono para agregar retos -->
@@ -45,9 +43,7 @@
         android:id="@+id/icon_instructions"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_instructions"
-
-        android:tint="@color/orange"
+        android:src="@drawable/ic_instruccions"
         android:layout_margin="8dp"/>
 
     <!-- Ícono para compartir la app -->

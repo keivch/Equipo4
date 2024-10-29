@@ -2,4 +2,6 @@
     <string name="app_name">Project1</string>
     <string name="back">Retroceder</string>
     <string name="game_image_desc">juego</string>
+    <string name="si">SI</string>
+    <string name="no">NO</string>
 </resources>
