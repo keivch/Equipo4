@@ -8,11 +8,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.app.AlertDialog
 import com.example.project1.R
 import kotlin.random.Random
 
@@ -49,7 +47,7 @@ class Ventana_home_principal : AppCompatActivity() {
         mediaPlayer?.start()
 
         // Configuración del sonido de la botella girando
-        bottleSpinSound = MediaPlayer.create(this, R.raw.Spining_Bottle)
+        bottleSpinSound = MediaPlayer.create(this, R.raw.spinig_bottle)
 
         // Configuración del botón para iniciar el giro
         btnParpa.setOnClickListener {
@@ -68,11 +66,12 @@ class Ventana_home_principal : AppCompatActivity() {
         mediaPlayer?.pause()
         bottleSpinSound?.start()
 
-        // Generar una rotación aleatoria y aplicar al ImageView de la botella
-        val newRotation = lastRotation + Random.nextInt(360, 1080)
+        // Generar una rotación hacia la derecha y aplicar al ImageView de la botella
+        val rotationAmount = Random.nextInt(360, 1080) // Valor positivo para girar a la derecha
+        val newRotation = lastRotation + rotationAmount
         bottleImage.animate()
             .rotation(newRotation.toFloat())
-            .setDuration(3000)  // Duración del giro
+            .setDuration(2000)  // Duración del giro a 2 segundos
             .withEndAction {
                 lastRotation = newRotation.toFloat() % 360  // Guardar la última rotación en grados
                 bottleSpinSound?.pause()  // Pausar el sonido cuando la botella deja de girar
@@ -87,7 +86,7 @@ class Ventana_home_principal : AppCompatActivity() {
         countdownText.visibility = View.VISIBLE
         object : CountDownTimer(4000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                countdownText.text = ((millisUntilFinished / 1000)).toString()
+                countdownText.text = (millisUntilFinished / 1000).toString()
             }
 
             override fun onFinish() {
@@ -115,12 +114,20 @@ class Ventana_home_principal : AppCompatActivity() {
     private fun showRandomChallenge() {
         countdownText.visibility = View.GONE
 
-        // Aquí podrías abrir un cuadro de diálogo o realizar la acción deseada
-        // Por ahora, simplemente muestra el botón nuevamente para otro giro
-        btnParpa.visibility = View.VISIBLE
+        // Crear un cuadro de diálogo emergente con un reto
+        val challenges = arrayOf("Realiza 10 saltos", "Dibuja algo en 1 minuto", "Canta tu canción favorita")
+        val randomChallenge = challenges[Random.nextInt(challenges.size)]
 
-        // Reanudar el sonido de fondo
-        mediaPlayer?.start()
+        AlertDialog.Builder(this)
+            .setTitle("¡Reto!")
+            .setMessage(randomChallenge)
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+                btnParpa.visibility = View.VISIBLE // Mostrar el botón nuevamente
+                mediaPlayer?.start() // Reanudar el sonido de fondo
+            }
+            .setCancelable(false)
+            .show()
     }
 
     override fun onDestroy() {
@@ -130,3 +137,4 @@ class Ventana_home_principal : AppCompatActivity() {
         bottleSpinSound?.release()
     }
 }
+
