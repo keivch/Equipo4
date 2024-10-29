@@ -28,6 +28,7 @@
         <activity android:name=".GameRulesActivity"></activity>
 
 
+
     </application>
 
 </manifest>

@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
         // Mostrar la pantalla de splash durante 5 segundos
         Handler(Looper.getMainLooper()).postDelayed({
             // Después de 5 segundos, ir a la MainActivity
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, Ventana_home_principal::class.java))
             finish() // Finalizar SplashActivity para que no regrese al presionar atrás
         }, 5000) // 5000 milisegundos = 5 segundos
     }

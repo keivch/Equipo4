@@ -69,7 +69,7 @@ class RetosActivity : AppCompatActivity() {
         })
     }
 
-    private fun actualizarLista() {
+     fun actualizarLista() {
         retosList.clear()
         retosList.addAll(retoDatabase.getAllRetos().reversed())
         Log.d("RetosActivity", "Retos obtenidos: ${retosList.size}")
