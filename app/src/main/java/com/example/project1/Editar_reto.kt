@@ -1,5 +1,6 @@
 package com.example.project1
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
@@ -10,22 +11,30 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.project1.database.RetoDatabase
+import com.example.project1.model.Reto
 
 class Editar_reto : AppCompatActivity() {
 
-    private lateinit var database: SQLiteDatabase  // Inicializar la base de datos SQLite
+    private lateinit var database: RetoDatabase  // Inicializar la base de datos SQLite
+    private var challengeId: Int = 0  // Almacenar el ID del reto a editar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)  // Asume que existe una actividad principal
 
-        // Código para inicializar la base de datos SQLite (asegúrate de tener una clase de ayuda para SQLite)
-        // database = DatabaseHelper(this).writableDatabase
+        // Inicializar la base de datos SQLite
+        database = RetoDatabase(this)
 
-        // Mostrar el cuadro de diálogo
-        showEditChallengeDialog("Descripción del reto actual")
+        // Aquí puedes obtener el ID del reto a editar, por ejemplo, de un Intent
+        // challengeId = intent.getIntExtra("CHALLENGE_ID", 0)
+
+        // Obtener la descripción actual del reto (puedes cargarla de la base de datos usando challengeId)
+        val currentDescription = "Descripción del reto actual"  // Cambia esto por la descripción real
+        showEditChallengeDialog(currentDescription)
     }
 
+    @SuppressLint("MissingInflatedId")
     private fun showEditChallengeDialog(currentDescription: String) {
         // Crear el diálogo personalizado
         val dialog = Dialog(this)
@@ -53,7 +62,7 @@ class Editar_reto : AppCompatActivity() {
             val newDescription = descriptionEditText.text.toString()
             saveChallengeToDatabase(newDescription)  // Guardar el reto en la base de datos SQLite
             dialog.dismiss()  // Cierra el diálogo
-            // Actualizar la vista de la lista de retos aquí, si es necesario
+            // Aquí puedes actualizar la vista de la lista de retos si es necesario
         }
 
         // Evitar que el cuadro de diálogo se cierre al hacer clic fuera de él
@@ -62,14 +71,13 @@ class Editar_reto : AppCompatActivity() {
     }
 
     private fun saveChallengeToDatabase(description: String) {
-        // Guardar el reto en SQLite (ejemplo de consulta para actualizar)
-        val challengeId = 1  // ID del reto, este debería obtenerse de los datos actuales
+        // Guardar el reto en SQLite
         val contentValues = ContentValues().apply {
             put("description", description)
         }
 
         // Actualizar la descripción en la base de datos
-        database.update("Challenges", contentValues, "id=?", arrayOf(challengeId.toString()))
+        database.writableDatabase.update("retos", contentValues, "id=?", arrayOf(challengeId.toString()))
     }
 
     override fun onDestroy() {
@@ -77,3 +85,4 @@ class Editar_reto : AppCompatActivity() {
         database.close()  // Cerrar la base de datos para liberar recursos
     }
 }
+

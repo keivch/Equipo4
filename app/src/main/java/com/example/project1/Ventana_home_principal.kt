@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.app.AlertDialog
 import com.example.project1.R
+import com.example.project1.database.RetoDatabase
 import kotlin.random.Random
 
 class Ventana_home_principal : AppCompatActivity() {
@@ -114,21 +115,41 @@ class Ventana_home_principal : AppCompatActivity() {
     private fun showRandomChallenge() {
         countdownText.visibility = View.GONE
 
-        // Crear un cuadro de diálogo emergente con un reto
-        val challenges = arrayOf("Realiza 10 saltos", "Dibuja algo en 1 minuto", "Canta tu canción favorita")
-        val randomChallenge = challenges[Random.nextInt(challenges.size)]
+        // Obtener todos los retos de la base de datos
+        val db = RetoDatabase(this)
+        val retos = db.getAllRetos()
 
-        AlertDialog.Builder(this)
-            .setTitle("¡Reto!")
-            .setMessage(randomChallenge)
-            .setPositiveButton("Aceptar") { dialog, _ ->
-                dialog.dismiss()
-                btnParpa.visibility = View.VISIBLE // Mostrar el botón nuevamente
-                mediaPlayer?.start() // Reanudar el sonido de fondo
-            }
-            .setCancelable(false)
-            .show()
+        // Verificar si hay retos disponibles
+        if (retos.isNotEmpty()) {
+            // Elegir un reto aleatorio
+            val randomReto = retos[Random.nextInt(retos.size)]
+
+            // Crear un cuadro de diálogo emergente con el reto
+            AlertDialog.Builder(this)
+                .setTitle("¡Reto!")
+                .setMessage(randomReto.description + " \nDescripcion: " + randomReto.nombre) // Usar la descripción del reto aleatorio
+                .setPositiveButton("Aceptar") { dialog, _ ->
+                    dialog.dismiss()
+                    btnParpa.visibility = View.VISIBLE // Mostrar el botón nuevamente
+                    mediaPlayer?.start() // Reanudar el sonido de fondo
+                }
+                .setCancelable(false)
+                .show()
+        } else {
+            // Si no hay retos, mostrar un mensaje
+            AlertDialog.Builder(this)
+                .setTitle("¡Sin retos!")
+                .setMessage("No hay retos disponibles en la base de datos.")
+                .setPositiveButton("Aceptar") { dialog, _ ->
+                    dialog.dismiss()
+                    btnParpa.visibility = View.VISIBLE // Mostrar el botón nuevamente
+                    mediaPlayer?.start() // Reanudar el sonido de fondo
+                }
+                .setCancelable(false)
+                .show()
+        }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
