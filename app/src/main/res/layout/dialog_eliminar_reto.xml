@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="370dp"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical"
+    android:padding="23dp"
+    android:background="@color/white"
+    android:gravity="top|center"
+    android:layout_marginTop="30dp"
+    android:layout_marginStart="20dp">
+
+
+    <!-- Título del diálogo -->
+    <!--<TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp" /> -->
+
+    <!-- Mensaje del diálogo -->
+    <!--<TextView
+        android:id="@+id/tvMensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" /> -->
+
+    <!-- Botones del diálogo -->
+    <!--<LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end">  -->
+
+        <!-- Botón Cancelar -->
+        <!--<TextView
+            android:id="@+id/btnNo"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:textColor="@color/orange"
+
+            />  -->
+
+        <!-- Botón Confirmar -->
+        <!--<TextView
+            android:id="@+id/btnSi"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="20dp"
+            android:text="SI"
+            android:textStyle="bold"
+            android:textColor="@color/orange"
+            />
+    </LinearLayout>-->
+
+</LinearLayout>
