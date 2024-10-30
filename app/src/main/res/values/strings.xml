@@ -4,4 +4,8 @@
     <string name="game_image_desc">juego</string>
     <string name="si">SI</string>
     <string name="no">NO</string>
+    <string name="challenge">Reto</string>
+    <string name="description">Descripcion</string>"
+    <string name="Close">Cerrar</string>
+    <string name="PokemonImg">Pokemon</string>
 </resources>

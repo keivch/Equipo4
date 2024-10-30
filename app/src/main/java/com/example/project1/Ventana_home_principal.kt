@@ -3,17 +3,24 @@ package com.example.project1
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
-import com.example.project1.R
+import androidx.lifecycle.lifecycleScope
 import com.example.project1.database.RetoDatabase
+import com.example.project1.model.Pokemon
+import com.example.project1.model.PokemonApi
 import kotlin.random.Random
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+import kotlinx.coroutines.launch
 
 class Ventana_home_principal : AppCompatActivity() {
 
@@ -24,6 +31,23 @@ class Ventana_home_principal : AppCompatActivity() {
     private var bottleSpinSound: MediaPlayer? = null
     private var lastRotation = 0f
     private var countdownTimer: CountDownTimer? = null  // Variable para controlar el temporizador
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val pokemonApi = retrofit.create(PokemonApi::class.java)
+
+    private suspend fun fetchPokemonList(): List<Pokemon> {
+        return try {
+            val response = pokemonApi.getPokemon()
+            response.pokemon
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error al obtener la lista de Pokémon: ${e.message}", e)
+            emptyList() // Devuelve una lista vacía en caso de error
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,30 +130,30 @@ class Ventana_home_principal : AppCompatActivity() {
         val db = RetoDatabase(this)
         val retos = db.getAllRetos()
 
-        if (retos.isNotEmpty()) {
-            val randomReto = retos[Random.nextInt(retos.size)]
+        lifecycleScope.launch {
 
-            AlertDialog.Builder(this)
-                .setTitle("¡Reto!")
-                .setMessage("${randomReto.nombre} \nDescripción: ${randomReto.description}")
-                .setPositiveButton("Aceptar") { dialog, _ ->
-                    dialog.dismiss()
-                    btnParpa.visibility = View.VISIBLE
-                    mediaPlayer?.start()
+            val pokemonList = fetchPokemonList()
+                val randomPokemon = pokemonList.random()
+
+
+            if (retos.isNotEmpty()) {
+                val randomReto = retos[Random.nextInt(retos.size)]
+                val dialog = CustomDialog(this@Ventana_home_principal)
+                dialog.setPokemonImage(randomPokemon.img)
+                dialog.setTitle(randomReto.nombre)
+                dialog.setMessage(randomReto.description)
+                dialog.setCancelable(false)
+                dialog.show()
+
+                } else {
+                    val dialog = CustomDialog(this@Ventana_home_principal)
+                    dialog.setTitle("Sin reto :(")
+                    dialog.setMessage("Al parecer no hay retos disponibles, vamos agrega uno!.")
+                    dialog.setCancelable(false)
+                    dialog.show()
                 }
-                .setCancelable(false)
-                .show()
-        } else {
-            AlertDialog.Builder(this)
-                .setTitle("¡Sin retos!")
-                .setMessage("No hay retos disponibles en la base de datos.")
-                .setPositiveButton("Aceptar") { dialog, _ ->
-                    dialog.dismiss()
-                    btnParpa.visibility = View.VISIBLE
-                    mediaPlayer?.start()
-                }
-                .setCancelable(false)
-                .show()
+
+
         }
     }
 
