@@ -43,9 +43,9 @@ class Ventana_home_principal : AppCompatActivity() {
         btnParpa.startAnimation(blinkAnimation)
 
         // Configuración del sonido de fondo
-        mediaPlayer = MediaPlayer.create(this, R.raw.musica_espera)
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.start()
+//        mediaPlayer = MediaPlayer.create(this, R.raw.musica_espera)
+//        mediaPlayer?.isLooping = true
+//        mediaPlayer?.start()
 
         // Configuración del sonido de la botella girando
         bottleSpinSound = MediaPlayer.create(this, R.raw.spinig_bottle)
@@ -131,7 +131,7 @@ class Ventana_home_principal : AppCompatActivity() {
                 .setPositiveButton("Aceptar") { dialog, _ ->
                     dialog.dismiss()
                     btnParpa.visibility = View.VISIBLE // Mostrar el botón nuevamente
-                    mediaPlayer?.start() // Reanudar el sonido de fondo
+//                    mediaPlayer?.start() // Reanudar el sonido de fondo
                 }
                 .setCancelable(false)
                 .show()
@@ -143,7 +143,7 @@ class Ventana_home_principal : AppCompatActivity() {
                 .setPositiveButton("Aceptar") { dialog, _ ->
                     dialog.dismiss()
                     btnParpa.visibility = View.VISIBLE // Mostrar el botón nuevamente
-                    mediaPlayer?.start() // Reanudar el sonido de fondo
+//                    mediaPlayer?.start() // Reanudar el sonido de fondo
                 }
                 .setCancelable(false)
                 .show()

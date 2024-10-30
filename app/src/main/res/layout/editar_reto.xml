@@ -1,55 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="370dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@android:color/white"
-    android:padding="16dp">
+    android:padding="23dp"
+    android:background="@color/white"
+    android:gravity="center">
 
-    <!-- Título del cuadro de diálogo -->
+    <!-- Título del diálogo -->
     <TextView
-        android:id="@+id/dialogTitle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Editar reto"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:text="Editar Reto"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:paddingBottom="8dp" />
+        android:gravity="center"
+        android:layout_marginBottom="10dp"/>
 
-    <!-- Caja de texto para la descripción del reto -->
+    <!-- Campo para el nuevo nombre del reto -->
     <EditText
-        android:id="@+id/editChallengeDescription"
+        android:id="@+id/edit_nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Descripción del reto"
-        android:textColorHint="@android:color/darker_gray"
-        android:textColor="@android:color/black"
-        android:backgroundTint="@color/orange" />
+        android:hint="Nuevo nombre"
+        android:textColorHint="@color/dark_gray"
+        android:layout_marginBottom="10dp"/>
 
-    <!-- Botones para guardar y cancelar -->
+    <!-- Campo para la nueva descripción del reto -->
+    <EditText
+        android:id="@+id/edit_descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nueva descripción"
+        android:textColorHint="@color/dark_gray"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Botones de acción -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end"
-        android:layout_marginTop="16dp">
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/btnCancel"
+        <!-- Botón CANCELAR -->
+        <TextView
+            android:id="@+id/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancelar"
+            android:text="CANCELAR"
             android:textColor="@color/orange"
-            android:background="@android:color/transparent" />
+            android:padding="10dp"
+            android:layout_marginEnd="30dp"
+            android:clickable="true"
+            android:focusable="true"/>
 
-        <Button
-            android:id="@+id/btnSave"
+        <!-- Botón GUARDAR -->
+        <TextView
+            android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar"
+            android:text="GUARDAR"
             android:textColor="@color/orange"
-            android:background="@android:color/transparent" />
+            android:padding="10dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
     </LinearLayout>
 </LinearLayout>

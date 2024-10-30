@@ -59,6 +59,18 @@ class RetoDatabase(context: Context) : SQLiteOpenHelper(context, "retoDB", null,
         db.close()
     }
 
+    fun editReto(id: Int, nuevoNombre: String, nuevaDescripcion: String) {
+        val db = writableDatabase
+        val contentValues = ContentValues().apply {
+            put("nombre", nuevoNombre)
+            put("description", nuevaDescripcion)
+        }
+
+        // Ejecuta la actualización en la base de datos usando el id
+        db.update("retos", contentValues, "id = ?", arrayOf(id.toString()))
+        db.close()
+    }
+
 
 
 }

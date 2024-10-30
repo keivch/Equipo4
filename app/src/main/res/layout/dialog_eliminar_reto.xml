@@ -1,71 +1,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="370dp"
     android:layout_height="wrap_content"
-
     android:orientation="vertical"
     android:padding="23dp"
     android:background="@color/white"
-    android:gravity="top|center"
-    android:layout_marginTop="30dp"
-    android:layout_marginStart="20dp">
+    android:gravity="center">
 
-
-    <!-- Título del diálogo -->
-    <!--<TextView
-        android:id="@+id/tvTitulo"
+    <!-- Título -->
+    <TextView
+        android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="14sp"
+        android:text="¿Desea eliminar el siguiente reto?"
         android:textColor="@color/black"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="20dp" /> -->
+        android:gravity="center"
+        android:layout_marginBottom="10dp"/>
 
-    <!-- Mensaje del diálogo -->
-    <!--<TextView
-        android:id="@+id/tvMensaje"
+    <!-- Descripción del reto -->
+    <TextView
+        android:id="@+id/dialog_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="14sp"
         android:textColor="@color/black"
+        android:textSize="16sp"
         android:gravity="center"
-        android:layout_marginBottom="24dp" /> -->
+        android:layout_marginBottom="20dp"/>
 
-    <!-- Botones del diálogo -->
-    <!--<LinearLayout
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="wrap_content"
+    <!-- Botones de acción -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="end">  -->
+        android:gravity="center">
 
-        <!-- Botón Cancelar -->
-        <!--<TextView
-            android:id="@+id/btnNo"
-
+        <!-- Botón NO -->
+        <TextView
+            android:id="@+id/button_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NO"
-            android:textStyle="bold"
-            android:background="@android:color/transparent"
             android:textColor="@color/orange"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:layout_marginEnd="30dp"
+            android:clickable="true"
+            android:focusable="true"/>
 
-            />  -->
-
-        <!-- Botón Confirmar -->
-        <!--<TextView
-            android:id="@+id/btnSi"
-
+        <!-- Botón SI -->
+        <TextView
+            android:id="@+id/button_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_marginLeft="20dp"
             android:text="SI"
-            android:textStyle="bold"
             android:textColor="@color/orange"
-            />
-    </LinearLayout>-->
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:clickable="true"
+            android:focusable="true"/>
 
+    </LinearLayout>
 </LinearLayout>

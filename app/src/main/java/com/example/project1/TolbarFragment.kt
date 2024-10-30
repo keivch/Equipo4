@@ -48,11 +48,13 @@ class ToolbarFragment : Fragment() {
 
         iconInstructions.setOnClickListener {
             // Crea un Intent para iniciar GameRulesActivity
+
             val intent = Intent(requireContext(), GameRulesActivity::class.java)
             startActivity(intent)
         }
 
         iconChallenges.setOnClickListener {
+            mediaPlayer.pause()
             val intent = Intent(requireContext(), RetosActivity::class.java)
             startActivity(intent)
         }
