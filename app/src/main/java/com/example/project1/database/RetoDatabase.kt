@@ -59,6 +59,21 @@ class RetoDatabase(context: Context) : SQLiteOpenHelper(context, "retoDB", null,
         db.close()
     }
 
+    fun getRetoById(id: Int): Reto? {
+        val db = readableDatabase
+        var reto: Reto? = null
+        val cursor = db.rawQuery("SELECT * FROM retos WHERE id = ?", arrayOf(id.toString()))
+
+        if (cursor.moveToFirst()) {
+            val nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"))
+            val description = cursor.getString(cursor.getColumnIndexOrThrow("description"))
+            reto = Reto(id, nombre, description)
+        }
+        cursor.close()
+        db.close()
+        return reto
+    }
+
 
 
 }

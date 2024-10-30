@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Guardar"
             android:textColor="@color/orange"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            android:layout_marginStart="8dp" />
     </LinearLayout>
 </LinearLayout>
