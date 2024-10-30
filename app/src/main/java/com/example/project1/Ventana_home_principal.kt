@@ -40,9 +40,7 @@ class Ventana_home_principal : AppCompatActivity() {
         val blinkAnimation: Animation = AnimationUtils.loadAnimation(this, R.anim.animacion_circulo_parpadeante)
         btnParpa.startAnimation(blinkAnimation)
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.musica_espera)
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.start()
+
 
         bottleSpinSound = MediaPlayer.create(this, R.raw.spinig_bottle)
 
@@ -51,7 +49,7 @@ class Ventana_home_principal : AppCompatActivity() {
         }
 
         // Configurar el temporizador inicial para la cuenta regresiva solo una vez al iniciar la actividad
-        startCountdown()
+
     }
 
     private fun startBottleSpin() {
@@ -60,11 +58,17 @@ class Ventana_home_principal : AppCompatActivity() {
         mediaPlayer?.pause()
         bottleSpinSound?.start()
 
-        val rotationAmount = Random.nextInt(360, 1080)
+        val baseSpin = 3600f // Ángulo base para asegurar que siempre haya múltiples giros completos
+
+        val rotationAmount = baseSpin + (0..360).random()
         val newRotation = lastRotation + rotationAmount
         bottleImage.animate()
             .rotation(newRotation.toFloat())
-            .setDuration(2000)
+            .setDuration(1000)
+        bottleImage.rotation = lastRotation
+        bottleImage.animate().rotation(newRotation).setDuration(3000).withEndAction {
+        // Guardar el ángulo actual al terminar el giro en un rango de 0 a 360°
+        }
             .withEndAction {
                 lastRotation = newRotation.toFloat() % 360
                 bottleSpinSound?.pause()
@@ -81,7 +85,7 @@ class Ventana_home_principal : AppCompatActivity() {
         // Cancelar cualquier temporizador existente antes de crear uno nuevo
         countdownTimer?.cancel()
 
-        countdownTimer = object : CountDownTimer(3000, 1000) {
+        countdownTimer = object : CountDownTimer(4000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 countdownText.text = (millisUntilFinished / 1000).toString()
             }
@@ -107,7 +111,7 @@ class Ventana_home_principal : AppCompatActivity() {
 
             AlertDialog.Builder(this)
                 .setTitle("¡Reto!")
-                .setMessage("${randomReto.description} \nDescripción: ${randomReto.nombre}")
+                .setMessage("${randomReto.nombre} \nDescripción: ${randomReto.description}")
                 .setPositiveButton("Aceptar") { dialog, _ ->
                     dialog.dismiss()
                     btnParpa.visibility = View.VISIBLE

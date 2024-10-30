@@ -120,8 +120,8 @@ class RetoAdapter(
 
         // Configurar el botón GUARDAR
         dialogView.findViewById<TextView>(R.id.button_save).setOnClickListener {
-            val nuevoNombre = editNombre.text.toString()
-            val nuevaDescripcion = editDescripcion.text.toString()
+            val nuevoNombre = editDescripcion.text.toString()
+            val nuevaDescripcion = editNombre.text.toString()
 
             if (nuevoNombre.isNotEmpty() && nuevaDescripcion.isNotEmpty()) {
                 // Actualizar en la base de datos

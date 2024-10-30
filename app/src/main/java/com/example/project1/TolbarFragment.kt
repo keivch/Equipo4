@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 
 class ToolbarFragment : Fragment() {
 
@@ -39,8 +37,13 @@ class ToolbarFragment : Fragment() {
         mediaPlayer.start()
 
         iconStar.setOnClickListener {
-            // Lógica para calificar la app
+            val intent = Intent(requireContext(), WebViewActivity::class.java).apply {
+                putExtra("URL", "https://play.google.com/store/apps/details?id=com.nequi.MobileApp&hl=es_419&gl=es")
+            }
+            startActivity(intent)
         }
+
+
 
         iconAudio.setOnClickListener {
             toggleAudio(iconAudio)
@@ -48,13 +51,12 @@ class ToolbarFragment : Fragment() {
 
         iconInstructions.setOnClickListener {
             // Crea un Intent para iniciar GameRulesActivity
-
             val intent = Intent(requireContext(), GameRulesActivity::class.java)
             startActivity(intent)
         }
 
         iconChallenges.setOnClickListener {
-            mediaPlayer.pause()
+            mediaPlayer.pause()  // Pausa la música al entrar a RetosActivity
             val intent = Intent(requireContext(), RetosActivity::class.java)
             startActivity(intent)
         }
@@ -80,8 +82,25 @@ class ToolbarFragment : Fragment() {
         isAudioOn = !isAudioOn
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Reanudar la música si está activada
+        if (isAudioOn) {
+            mediaPlayer.start()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Pausar la música cuando el fragmento está en pausa
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.pause()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer.release()
     }
 }
+
