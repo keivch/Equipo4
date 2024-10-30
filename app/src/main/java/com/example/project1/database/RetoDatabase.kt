@@ -29,8 +29,8 @@ class RetoDatabase(context: Context) : SQLiteOpenHelper(context, "retoDB", null,
         while (cursor.moveToNext()) {
             // Cambia el índice para obtener el nombre y la descripción
             val id = cursor.getInt(0)
-            val nombre = cursor.getString(1)
-            val description = cursor.getString(2) // Asegúrate de que esto sea correcto
+            val nombre = cursor.getString(2)
+            val description = cursor.getString(1) // Asegúrate de que esto sea correcto
             retos.add(Reto(id, nombre, description))
             Log.d("RetoDatabase", "Reto encontrado: $nombre - $description")
         }

@@ -49,15 +49,16 @@ class RetoAdapter(
     override fun getItemCount(): Int = retos.size
 
     class RetoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val descriptionTextView: TextView = view.findViewById(R.id.reto_description)
         private val nombreTextView: TextView = view.findViewById(R.id.reto_nombre)
+        private val descriptionTextView: TextView = view.findViewById(R.id.reto_description)
+
 
         val editButton: ImageView = view.findViewById(R.id.icon_edit)
         val deleteButton: ImageView = view.findViewById(R.id.icon_delete)
 
         fun bind(reto: Reto) {
-            descriptionTextView.text = reto.description
             nombreTextView.text = reto.nombre
+            descriptionTextView.text = reto.description
         }
     }
 
@@ -120,8 +121,8 @@ class RetoAdapter(
 
         // Configurar el botón GUARDAR
         dialogView.findViewById<TextView>(R.id.button_save).setOnClickListener {
-            val nuevoNombre = editDescripcion.text.toString()
-            val nuevaDescripcion = editNombre.text.toString()
+            val nuevoNombre = editNombre.text.toString()
+            val nuevaDescripcion = editDescripcion.text.toString()
 
             if (nuevoNombre.isNotEmpty() && nuevaDescripcion.isNotEmpty()) {
                 // Actualizar en la base de datos
