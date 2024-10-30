@@ -21,6 +21,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 
 class Ventana_home_principal : AppCompatActivity() {
 
@@ -32,9 +34,17 @@ class Ventana_home_principal : AppCompatActivity() {
     private var lastRotation = 0f
     private var countdownTimer: CountDownTimer? = null  // Variable para controlar el temporizador
 
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+    val okHttpClient = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/")
         .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient) // Usa el OkHttpClient con logging
         .build()
 
     private val pokemonApi = retrofit.create(PokemonApi::class.java)
