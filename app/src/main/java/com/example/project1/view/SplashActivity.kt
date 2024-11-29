@@ -1,4 +1,4 @@
-package com.example.project1
+package com.example.project1.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
 import android.view.animation.AnimationUtils
+import com.example.project1.R
+import com.example.project1.Ventana_home_principal
 
 class SplashActivity : AppCompatActivity() {
 

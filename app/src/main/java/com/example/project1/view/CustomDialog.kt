@@ -1,4 +1,4 @@
-package com.example.project1
+package com.example.project1.view
 
 import android.app.Dialog
 import android.content.Context
@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.example.project1.R
 
 class CustomDialog(context: Context) : Dialog(context) {
 

@@ -9,13 +9,13 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import com.example.project1.database.RetoDatabase
 import com.example.project1.model.Pokemon
 import com.example.project1.model.PokemonApi
+import com.example.project1.view.CustomDialog
 import kotlin.random.Random
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

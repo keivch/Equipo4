@@ -69,7 +69,7 @@ class RetosActivity : AppCompatActivity() {
         })
     }
 
-     fun actualizarLista() {
+    fun actualizarLista() {
         retosList.clear()
         retosList.addAll(retoDatabase.getAllRetos().reversed())
         Log.d("RetosActivity", "Retos obtenidos: ${retosList.size}")
@@ -112,8 +112,4 @@ class RetosActivity : AppCompatActivity() {
 
         dialog.show()
     }
-
-
 }
-
-

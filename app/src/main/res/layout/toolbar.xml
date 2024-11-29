@@ -16,7 +16,6 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_star"
-
         android:tint="@color/orange"
         android:layout_margin="8dp"/>
 
