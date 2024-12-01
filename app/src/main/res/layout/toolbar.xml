@@ -11,33 +11,35 @@
     android:elevation="8dp">
 
     <!-- Ícono de estrella -->
+
+    <!-- Ícono para el audio -->
+
+    <!-- Ícono de retos -->
     <ImageView
         android:id="@+id/icon_star"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_margin="8dp"
         android:src="@drawable/ic_star"
-        android:tint="@color/orange"
-        android:layout_margin="8dp"/>
+        android:tint="@color/orange" />
 
-    <!-- Ícono para el audio -->
     <ImageView
         android:id="@+id/icon_audio"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_margin="8dp"
+
         android:src="@drawable/ic_audio_on"
+        android:tint="@color/orange" />
 
-        android:tint="@color/orange"
-        android:layout_margin="8dp"/>
-
-    <!-- Ícono de retos -->
+    <!-- Ícono para agregar retos -->
     <ImageView
         android:id="@+id/icon_challenges"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_challenge"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_challenge" />
 
-    <!-- Ícono para agregar retos -->
     <ImageView
         android:id="@+id/icon_instructions"
         android:layout_width="48dp"
@@ -54,5 +56,14 @@
 
         android:tint="@color/orange"
         android:layout_margin="8dp"/>
+
+    <!-- Icono para cerrar sesion  -->
+    <ImageView
+        android:id="@+id/icon_close"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/cerrarsesion"
+        android:layout_margin="8dp"></ImageView>
+
 </LinearLayout>
 

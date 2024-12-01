@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.project1.view.GameRulesActivity
+import com.example.project1.view.LoginView
 
 class ToolbarFragment : Fragment() {
 
@@ -31,6 +32,7 @@ class ToolbarFragment : Fragment() {
         val iconInstructions: ImageView = view.findViewById(R.id.icon_instructions)
         val iconChallenges: ImageView = view.findViewById(R.id.icon_challenges)
         val iconShare: ImageView = view.findViewById(R.id.icon_share)
+        val iconClose: ImageView = view.findViewById(R.id.icon_close)
 
         // Inicializar audio
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.musica_espera)
@@ -69,6 +71,11 @@ class ToolbarFragment : Fragment() {
                 putExtra(Intent.EXTRA_TEXT, "App pico botella \n¡¡Solo los valientes lo juegan!! \nhttps://play.google.com/store/apps/details?id=com.nequi.MobileApp&hl=es_419&gl=es")
             }
             startActivity(Intent.createChooser(shareIntent, "Compartir vía"))
+        }
+
+        iconClose.setOnClickListener{
+            val intent = Intent(requireContext(), LoginView::class.java)
+            startActivity(intent)
         }
     }
 
