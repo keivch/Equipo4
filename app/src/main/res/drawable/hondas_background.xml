@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1080dp"
+    android:height="2550dp"
+    android:viewportWidth="1080"
+    android:viewportHeight="150">
+
+    <!-- Fondo del área de las ondas -->
+    <path
+        android:fillColor="@color/black"
+        android:pathData="M 0,0 H 1080 V 150 H 0 Z" />
+
+    <!-- Ondas irregulares con más segmentos -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="
+            M 0,120
+            Q 60,130 120,120
+            T 240,130
+            Q 300,110 360,140
+            T 480,130
+            Q 540,140 600,130
+            T 720,140
+            Q 780,110 840,130
+            T 960,120
+            Q 1020,140 1080,120
+            L 1080,150
+            L 0,150 Z" />
+</vector>

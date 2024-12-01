@@ -32,6 +32,8 @@
         <activity android:name=".RetosActivity"></activity>
         <activity android:name=".view.GameRulesActivity"></activity>
         <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".view.LoginView"></activity>
+
 
 
 

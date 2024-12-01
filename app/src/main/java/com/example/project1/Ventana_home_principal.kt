@@ -24,6 +24,12 @@ import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
+
+
+enum class ProviderType{
+    BASIC
+}
+
 class Ventana_home_principal : AppCompatActivity() {
 
     private lateinit var bottleImage: ImageView
@@ -174,3 +180,4 @@ class Ventana_home_principal : AppCompatActivity() {
         countdownTimer?.cancel()  // Cancelar el temporizador al destruir la actividad
     }
 }
+

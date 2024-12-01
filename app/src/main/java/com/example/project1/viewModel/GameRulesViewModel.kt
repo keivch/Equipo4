@@ -13,6 +13,6 @@ class GameRulesViewModel : ViewModel() {
 
     fun onBackPressed() {
         // Restaurar el audio si estaba en ON al regresar al home
-        AudioManager.resumeAudio()
+        AudioManager.playAudio()
     }
 }

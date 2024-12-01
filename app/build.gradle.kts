@@ -1,11 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.example.project1"
-    compileSdk = 34
+    compileSdk = 35
+
+
 
     defaultConfig {
         applicationId = "com.example.project1"
@@ -27,19 +30,32 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        //sourceCompatibility = JavaVersion.VERSION_1_8
+        //targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility =JavaVersion.VERSION_17
+                targetCompatibility =JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "1.8"
+
+        jvmTarget = "17"
+
     }
     buildFeatures{
         viewBinding = true
     }
 }
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation (libs.android.lottie)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.auth.ktx)
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -55,6 +71,15 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation(libs.logging.interceptor)
+
+    //implementation(libs.firebase.firestore)
+
+   // implementation (libs.material.v190)
+
+
+    implementation(platform(libs.firebase.bom))
+    //implementation(libs.birebase.auth)
+    implementation(libs.firebase.analytics)
 
 }
