@@ -60,7 +60,7 @@ class ToolbarFragment : Fragment() {
 
         iconChallenges.setOnClickListener {
             mediaPlayer.pause()  // Pausa la música al entrar a RetosActivity
-            val intent = Intent(requireContext(), RetosActivity::class.java)
+            val intent = Intent(requireContext(), ChallengeActivity::class.java)
             startActivity(intent)
         }
 

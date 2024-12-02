@@ -10,106 +10,94 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.project1.database.RetoDatabase
 import com.example.project1.model.Reto
-import com.example.project1.adapter.RetoAdapter
+import com.example.project1.viewModel.ChallengeViewModel
+import com.google.firebase.auth.FirebaseAuth
 
-class RetosActivity : AppCompatActivity() {
-    private lateinit var retoAdapter: RetoAdapter
-    private lateinit var retoDatabase: RetoDatabase
-    private var retosList = mutableListOf<Reto>()
-    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
-    private lateinit var recyclerViewRetos: RecyclerView
+class ChallengeActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: ChallengeViewModel
+    private var userId: String? = null // Reemplaza con el ID del usuario autenticado
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_retos)
 
-        toolbar = findViewById(R.id.toolbar)
-        recyclerViewRetos = findViewById(R.id.recyclerViewRetos)
+        // Inicializa el ViewModel
+        viewModel = ViewModelProvider(this).get(ChallengeViewModel::class.java)
 
-        val buttonAgregar: Button = findViewById(R.id.btnAddReto) // Cambia esto por el ID correcto de tu botón
-        buttonAgregar.setOnClickListener {
-            mostrarDialogAgregarReto()
+        // Obtén el usuario autenticado
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        userId = currentUser?.uid // El UID es el ID único del usuario autenticado
+
+        if (userId == null) {
+            // Si no hay usuario autenticado, puedes redirigir a la pantalla de login
+            // o mostrar un mensaje de error
+            Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            // Opcionalmente redirigir al usuario a la pantalla de login
+            return
         }
 
+        // Cargar los retos del usuario
+        viewModel.loadChallenges(userId!!)
 
-        // Configura la toolbar
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Retos"
-
-
-        // Configuración de la Toolbar para navegación
-        toolbar.setNavigationOnClickListener {
-            onBackPressed() // Esto es opcional si deseas manejar el retroceso con el dispatcher
+        // Observa los retos para actualizar la UI
+        viewModel.challenges.observe(this) { challenges ->
+            challenges?.let { updateUI(it) }
         }
 
-        // Configuración de la base de datos y del RecyclerView
-        try {
-            retoDatabase = RetoDatabase(this)
-            retosList = retoDatabase.getAllRetos().toMutableList()
-            retosList.reverse() // Orden inverso para mostrar el más reciente en la parte superior
-
-            retoAdapter = RetoAdapter(retosList, retoDatabase) { actualizarLista() }
-            recyclerViewRetos.layoutManager = LinearLayoutManager(this)
-            recyclerViewRetos.adapter = retoAdapter
-        } catch (e: Exception) {
-            Log.e("RetosActivity", "Error al inicializar la base de datos o adaptador", e)
-        }
-
-        // Registrar el callback para el botón de retroceso
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Maneja el evento de retroceso aquí
-                finish() // Cierra la actividad
+        // Botón para agregar un reto
+        findViewById<Button>(R.id.btnAddReto).setOnClickListener {
+            val challenge = Reto(
+                name = "Nuevo reto",
+                description = "Descripción del reto"
+            )
+            viewModel.saveChallenge(userId!!, challenge) { success ->
+                if (success) Toast.makeText(this, "Reto guardado", Toast.LENGTH_SHORT).show()
+                else Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show()
             }
-        })
-    }
-
-    fun actualizarLista() {
-        retosList.clear()
-        retosList.addAll(retoDatabase.getAllRetos().reversed())
-        Log.d("RetosActivity", "Retos obtenidos: ${retosList.size}")
-        retoAdapter.notifyDataSetChanged() // Notificar al adaptador que los datos han cambiado
-    }
-
-
-    private fun agregarReto(nombre: String, descripcion: String) {
-        if (nombre.isNotEmpty() && descripcion.isNotEmpty()) {
-            retoDatabase.addReto(nombre, descripcion) // Agrega el reto a la base de datos
-            Log.d("RetosActivity", "Reto agregado: $nombre - $descripcion") // Mensaje en el log
-            Toast.makeText(this, "Reto agregado", Toast.LENGTH_SHORT).show()
-            actualizarLista() // Actualiza la lista de retos
-        } else {
-            Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun mostrarDialogAgregarReto() {
-        // Inflar el layout del dialog
-        val dialogView = layoutInflater.inflate(R.layout.dialog_agregar_reto, null)
 
-        // Inicializar los EditText
-        val editTextNombre = dialogView.findViewById<EditText>(R.id.editTextNombre)
-        val editTextDescripcion = dialogView.findViewById<EditText>(R.id.editTextDescripcion)
+    private fun updateUI(challenges: List<Reto>) {
+        // Actualiza tu RecyclerView con la lista de retos
+    }
 
-        // Crear el dialog
-        val dialog = AlertDialog.Builder(this)
-            .setTitle("Agregar Reto")
+    private fun showEditDialog(challenge: Reto) {
+        // Crea y muestra el diálogo para editar el reto
+        val dialogView = layoutInflater.inflate(R.layout.editar_reto, null)
+        val editNombre = dialogView.findViewById<EditText>(R.id.edit_nombre)
+        val editDescripcion = dialogView.findViewById<EditText>(R.id.edit_descripcion)
+
+        editNombre.setText(challenge.name)
+        editDescripcion.setText(challenge.description)
+
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Editar Reto")
             .setView(dialogView)
-            .setPositiveButton("Agregar") { _, _ ->
-                val nombre = editTextNombre.text.toString()
-                val descripcion = editTextDescripcion.text.toString()
-                // Llamar a la función para agregar el reto
-                agregarReto(nombre, descripcion)
+            .setPositiveButton("Guardar") { dialog, _ ->
+                // Actualizar reto en la base de datos
+                val updatedChallenge = challenge.copy(
+                    name = editNombre.text.toString(),
+                    description = editDescripcion.text.toString()
+                )
+                viewModel.saveChallenge(userId!!, updatedChallenge) { success ->
+                    if (success) {
+                        Toast.makeText(this, "Reto actualizado", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Error al actualizar", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                dialog.dismiss()
             }
             .setNegativeButton("Cancelar") { dialog, _ ->
                 dialog.dismiss()
             }
             .create()
 
-        dialog.show()
+        alertDialog.show()
     }
 }

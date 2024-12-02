@@ -9,16 +9,19 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
-import com.example.project1.database.RetoDatabase
 import com.example.project1.model.Pokemon
 import com.example.project1.model.PokemonApi
 import com.example.project1.view.CustomDialog
+import com.google.firebase.auth.FirebaseAuth
 import kotlin.random.Random
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import androidx.lifecycle.ViewModelProvider
 
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -143,35 +146,49 @@ class Ventana_home_principal : AppCompatActivity() {
     private fun showRandomChallenge() {
         countdownText.visibility = View.GONE
 
-        val db = RetoDatabase(this)
-        val retos = db.getAllRetos()
+        // Si tienes el userId y el viewModel configurados, obtenemos los retos desde Firestore
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        lifecycleScope.launch {
+        if (userId != null) {
+            lifecycleScope.launch {
+                try {
+                    // Obtén los retos desde Firestore
+                    val retos = viewModel.laodChallenge(userId)
 
-            val pokemonList = fetchPokemonList()
-                val randomPokemon = pokemonList.random()
+                    if (retos.isNotEmpty()) {
+                        // Obtén un reto aleatorio
+                        val randomReto = retos.random()
 
+                        // Si estás mostrando un Pokémon también, obtén su imagen de alguna fuente
+                        val pokemonList = fetchPokemonList()
+                        val randomPokemon = pokemonList.random()
 
-            if (retos.isNotEmpty()) {
-                val randomReto = retos[Random.nextInt(retos.size)]
-                val dialog = CustomDialog(this@Ventana_home_principal)
-                dialog.setPokemonImage(randomPokemon.img)
-                dialog.setTitle(randomReto.nombre)
-                dialog.setMessage(randomReto.description)
-                dialog.setCancelable(false)
-                dialog.show()
-
-                } else {
-                    val dialog = CustomDialog(this@Ventana_home_principal)
-                    dialog.setTitle("Sin reto :(")
-                    dialog.setMessage("Al parecer no hay retos disponibles, vamos agrega uno!.")
-                    dialog.setCancelable(false)
-                    dialog.show()
+                        // Muestra el diálogo con el reto y el Pokémon
+                        val dialog = CustomDialog(this@Ventana_home_principal)
+                        dialog.setPokemonImage(randomPokemon.img)
+                        dialog.setTitle(randomReto.name)
+                        dialog.setMessage(randomReto.description)
+                        dialog.setCancelable(false)
+                        dialog.show()
+                    } else {
+                        // Si no hay retos, muestra un mensaje de advertencia
+                        val dialog = CustomDialog(this@Ventana_home_principal)
+                        dialog.setTitle("Sin reto :(")
+                        dialog.setMessage("Al parecer no hay retos disponibles, ¡vamos a agregar uno!")
+                        dialog.setCancelable(false)
+                        dialog.show()
+                    }
+                } catch (e: Exception) {
+                    // Maneja cualquier error que pueda ocurrir
+                    Toast.makeText(this@Ventana_home_principal, "Error al cargar los retos", Toast.LENGTH_SHORT).show()
                 }
-
-
+            }
+        } else {
+            // Si el usuario no está autenticado
+            Toast.makeText(this@Ventana_home_principal, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

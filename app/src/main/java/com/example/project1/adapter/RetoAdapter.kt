@@ -14,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project1.R
-import com.example.project1.database.RetoDatabase
 import com.example.project1.model.Reto
 
 class RetoAdapter(

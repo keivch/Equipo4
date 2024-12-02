@@ -2,55 +2,89 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:background="@android:color/white"
+    android:padding="8dp"
+    android:elevation="2dp"
+    android:layout_marginBottom="8dp">
 
-    <ImageView
-        android:id="@+id/icono_reto"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_icono" />
-
-    <TextView
-        android:id="@+id/reto_nombre"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="@android:color/white" />
-
-    <TextView
-        android:id="@+id/reto_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/white"
-        android:padding="8dp"
-        android:background="@android:color/darker_gray" />
-
-    <!-- Los iconos para editar y eliminar -->
+    <!-- Contenedor de íconos (arriba) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end">
+        android:gravity="center_vertical"
+        android:padding="8dp">
 
+        <!-- Ícono principal -->
+        <ImageView
+            android:id="@+id/icon_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_icono"
+            android:contentDescription="Ícono principal"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Espaciador para empujar los botones de acción hacia la derecha -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <!-- Botones de acción -->
         <ImageView
             android:id="@+id/icon_edit"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_edit"
-            android:contentDescription="Editar reto" />
+            android:contentDescription="Editar reto"
+            android:tint="@android:color/black"
+            android:layout_marginEnd="16dp" />
 
         <ImageView
             android:id="@+id/icon_delete"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_delete"
-            android:contentDescription="Eliminar reto" />
+            android:contentDescription="Eliminar reto"
+            android:tint="@android:color/black" />
     </LinearLayout>
 
+
+
+
+
+    <!-- Línea divisoria gris -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/white" />
+        android:background="@android:color/darker_gray"
+        android:layout_marginVertical="8dp" />
+
+    <!-- Contenedor de texto (abajo) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/reto_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:paddingBottom="4dp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/reto_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:lineSpacingExtra="4dp" />
+    </LinearLayout>
 </LinearLayout>
+
 
