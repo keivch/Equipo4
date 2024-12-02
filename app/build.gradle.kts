@@ -56,7 +56,7 @@ dependencies {
     implementation (libs.android.lottie)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.auth.ktx)
-    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+    annotationProcessor(libs.compiler)
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")

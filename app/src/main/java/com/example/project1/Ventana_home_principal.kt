@@ -22,6 +22,7 @@ import kotlin.random.Random
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.lifecycle.ViewModelProvider
+import com.example.project1.viewModel.ChallengeViewModel
 
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -37,6 +38,8 @@ class Ventana_home_principal : AppCompatActivity() {
 
     private lateinit var bottleImage: ImageView
     private lateinit var countdownText: TextView
+    private lateinit var viewModel: ChallengeViewModel
+
     private lateinit var btnParpa: View
     private var mediaPlayer: MediaPlayer? = null
     private var bottleSpinSound: MediaPlayer? = null
@@ -71,6 +74,8 @@ class Ventana_home_principal : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ventana_home_principal)
+        viewModel = ViewModelProvider(this).get(ChallengeViewModel::class.java)
+
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.toolbar_container, ToolbarFragment())
@@ -146,20 +151,18 @@ class Ventana_home_principal : AppCompatActivity() {
     private fun showRandomChallenge() {
         countdownText.visibility = View.GONE
 
-        // Si tienes el userId y el viewModel configurados, obtenemos los retos desde Firestore
+        // Obtén el ID del usuario autenticado
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
         if (userId != null) {
-            lifecycleScope.launch {
-                try {
-                    // Obtén los retos desde Firestore
-                    val retos = viewModel.laodChallenge(userId)
+            // Observa los cambios en los retos
+            viewModel.challenges.observe(this) { retos ->
+                if (!retos.isNullOrEmpty()) {
+                    // Obtén un reto aleatorio
+                    val randomReto = retos.random()
 
-                    if (retos.isNotEmpty()) {
-                        // Obtén un reto aleatorio
-                        val randomReto = retos.random()
-
-                        // Si estás mostrando un Pokémon también, obtén su imagen de alguna fuente
+                    // Si estás mostrando un Pokémon también, obtén su imagen
+                    lifecycleScope.launch {
                         val pokemonList = fetchPokemonList()
                         val randomPokemon = pokemonList.random()
 
@@ -170,24 +173,25 @@ class Ventana_home_principal : AppCompatActivity() {
                         dialog.setMessage(randomReto.description)
                         dialog.setCancelable(false)
                         dialog.show()
-                    } else {
-                        // Si no hay retos, muestra un mensaje de advertencia
-                        val dialog = CustomDialog(this@Ventana_home_principal)
-                        dialog.setTitle("Sin reto :(")
-                        dialog.setMessage("Al parecer no hay retos disponibles, ¡vamos a agregar uno!")
-                        dialog.setCancelable(false)
-                        dialog.show()
                     }
-                } catch (e: Exception) {
-                    // Maneja cualquier error que pueda ocurrir
-                    Toast.makeText(this@Ventana_home_principal, "Error al cargar los retos", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Si no hay retos, muestra un mensaje de advertencia
+                    val dialog = CustomDialog(this@Ventana_home_principal)
+                    dialog.setTitle("Sin reto :(")
+                    dialog.setMessage("Al parecer no hay retos disponibles, ¡vamos a agregar uno!")
+                    dialog.setCancelable(false)
+                    dialog.show()
                 }
             }
+
+            // Carga los retos desde el repositorio
+            viewModel.loadChallenges(userId)
         } else {
             // Si el usuario no está autenticado
             Toast.makeText(this@Ventana_home_principal, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
     override fun onDestroy() {
