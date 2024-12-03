@@ -8,4 +8,5 @@
     <string name="description">Descripcion</string>"
     <string name="Close">Cerrar</string>
     <string name="PokemonImg">Pokemon</string>
+    <string name="AppName">Pico botella</string>
 </resources>
