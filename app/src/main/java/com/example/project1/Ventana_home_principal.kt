@@ -154,9 +154,9 @@ class Ventana_home_principal : AppCompatActivity() {
         // Obtén el ID del usuario autenticado
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        if (userId != null) {
+        if (userId != null)
             // Observa los cambios en los retos
-            viewModel.challenges.observe(this) { retos ->
+            viewModel.listaRetos.observe(this) { retos ->
                 if (!retos.isNullOrEmpty()) {
                     // Obtén un reto aleatorio
                     val randomReto = retos.random()
@@ -185,11 +185,8 @@ class Ventana_home_principal : AppCompatActivity() {
             }
 
             // Carga los retos desde el repositorio
-            viewModel.loadChallenges(userId)
-        } else {
-            // Si el usuario no está autenticado
-            Toast.makeText(this@Ventana_home_principal, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
-        }
+            viewModel.obtenerRetos()
+
     }
 
 
