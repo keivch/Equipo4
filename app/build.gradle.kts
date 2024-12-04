@@ -56,6 +56,7 @@ dependencies {
     implementation (libs.android.lottie)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.common.ktx)
     annotationProcessor(libs.compiler)
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -76,9 +77,14 @@ dependencies {
     implementation("com.google.firebase:firebase-bom:33.6.0")
     implementation("com.google.firebase:firebase-analytics")
 
+    // Para las pruebas unitarias
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0") // JUnit 5
-    testImplementation("org.mockito:mockito-core:5.6.0")         // Mockito
+    testImplementation("org.mockito:mockito-core:5.6.0") // Mockito
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0") // Mockito Kotlin
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")  // Coroutines para pruebas
+    testImplementation("androidx.arch.core:core-testing:2.1.0")  // LiveData y ViewModel
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2") // Dependencia de Coroutines
+    testImplementation("com.google.firebase:firebase-firestore:24.1.0") // Firebase Firestore mockeado
 
 
     //implementation(libs.firebase.firestore)
