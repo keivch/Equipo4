@@ -174,7 +174,7 @@ class Ventana_home_principal : AppCompatActivity() {
                         // Muestra el diálogo con el reto y el Pokémon
                         val dialog = CustomDialog(this@Ventana_home_principal)
                         dialog.setPokemonImage(randomPokemon.img)
-                        dialog.setTitle(randomReto.name)
+                        dialog.setTitle("Reto: ")
                         dialog.setMessage(randomReto.description)
                         dialog.setCancelable(false)
                         dialog.show()

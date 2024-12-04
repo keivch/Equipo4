@@ -75,7 +75,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/reto_nombre"
+                android:id="@+id/reto_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -85,13 +85,6 @@
                 android:maxLines="1"
                 android:ellipsize="end" />
 
-            <TextView
-                android:id="@+id/reto_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:lineSpacingExtra="4dp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

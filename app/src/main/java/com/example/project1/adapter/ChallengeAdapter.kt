@@ -23,7 +23,7 @@
 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val cvReto: CardView = itemView.findViewById(R.id.cvRetos)
-            val tvName: TextView = itemView.findViewById(R.id.reto_nombre)
+
             val tvDescription: TextView = itemView.findViewById(R.id.reto_description)
             val ibtnBorrar: ImageButton = itemView.findViewById(R.id.icon_delete)
             val ibtnEdit: ImageButton = itemView.findViewById(R.id.icon_edit)
@@ -38,7 +38,7 @@
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val reto = listaRetos[position]
 
-            holder.tvName.text = reto.name
+            
             holder.tvDescription.text = reto.description
 
             holder.ibtnBorrar.setOnClickListener {

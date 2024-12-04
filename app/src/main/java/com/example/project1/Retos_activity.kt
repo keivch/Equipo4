@@ -117,11 +117,7 @@ class ChallengeActivity : AppCompatActivity() {
                     LinearLayout.LayoutParams.WRAP_CONTENT) }
 
 
-            val editTextNombre = EditText(this).apply {
-                hint = "Nombre del reto"
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT) }
+
 
             val editTextDescripcion = EditText(this).apply {
                 hint = "Descripción del reto"
@@ -134,7 +130,7 @@ class ChallengeActivity : AppCompatActivity() {
             }
 
             // Agregar los EditTexts al contenedor principal
-            dialogLayout.addView(editTextNombre)
+
             dialogLayout.addView(editTextDescripcion)
 
             // Crear el contenedor para los botones
@@ -211,14 +207,14 @@ class ChallengeActivity : AppCompatActivity() {
 
 
             btnGuardar.setOnClickListener {
-                val nombre = editTextNombre.text.toString().trim()
+
                 val descripcion = editTextDescripcion.text.toString().trim()
 
-                if (nombre.isEmpty() || descripcion.isEmpty()) {
+                if ( descripcion.isEmpty()) {
                     Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
                 } else {
                     val userId = FirebaseAuth.getInstance().currentUser?.uid
-                    val reto = Challenge(name = nombre, description = descripcion, userId = userId)
+                    val reto = Challenge( description = descripcion, userId = userId)
                     viewModel.agregarReto(reto)
                     dialog.dismiss()
                 }
@@ -284,13 +280,13 @@ class ChallengeActivity : AppCompatActivity() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.editar_reto, null)
 
         // Configura las vistas del diálogo
-        val editNombre = dialogView.findViewById<EditText>(R.id.edit_nombre)
+
         val editDescripcion = dialogView.findViewById<EditText>(R.id.edit_descripcion)
         val buttonCancel = dialogView.findViewById<TextView>(R.id.button_cancel)
         val buttonSave = dialogView.findViewById<TextView>(R.id.button_save)
 
         // Precarga los datos actuales del reto en los campos de texto
-        editNombre.setText(reto.name)
+
         editDescripcion.setText(reto.description)
 
         // Crea el AlertDialog
@@ -309,18 +305,19 @@ class ChallengeActivity : AppCompatActivity() {
 
         // Manejo del botón "GUARDAR"
         buttonSave.setOnClickListener {
-            val nuevoNombre = editNombre.text.toString().trim()
+
             val nuevaDescripcion = editDescripcion.text.toString().trim()
 
             // Validar que los campos no estén vacíos
-            if (nuevoNombre.isEmpty() || nuevaDescripcion.isEmpty()) {
+            if (nuevaDescripcion.isEmpty()) {
                 Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
             } else {
                 // Actualiza el reto localmente
-                reto.name = nuevoNombre
+
                 reto.description = nuevaDescripcion
 
                 viewModel.editarReto(reto)
+                dialog.dismiss()
             }
         }
     }
