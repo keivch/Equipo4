@@ -10,36 +10,20 @@
     android:background="@android:color/transparent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="20dp">
+    android:padding="100dp">
 
     <!-- Contenedor de fondo con curva -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="50dp"
         android:background="@drawable/dialog_background"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:layout_gravity="center">
 
         <!-- Contenedor circular con imagen -->
-        <FrameLayout
-            android:id="@+id/circleContainer"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/dialog_image"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
 
-            <ImageView
-                android:id="@+id/imageViewPokemon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:contentDescription="@string/PokemonImg" />
-
-        </FrameLayout>
 
         <!-- Título -->
         <TextView
@@ -54,8 +38,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/circleContainer" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <!-- Mensaje -->
         <TextView
@@ -72,8 +55,7 @@
             android:paddingVertical="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/circleContainer" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -87,5 +69,25 @@
         android:textColor="@android:color/white"
         android:backgroundTint="@color/orange"
         android:translationY="20dp" /> <!-- Ajusta este valor para controlar cuánto sobresale el botón -->
+
+    <FrameLayout
+        android:id="@+id/circleContainer"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/dialog_image"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:translationY="-110dp">
+
+        <ImageView
+            android:id="@+id/imageViewPokemon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/PokemonImg" />
+
+    </FrameLayout>
 
 </FrameLayout>
