@@ -76,6 +76,10 @@ dependencies {
     implementation("com.google.firebase:firebase-bom:33.6.0")
     implementation("com.google.firebase:firebase-analytics")
 
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0") // JUnit 5
+    testImplementation("org.mockito:mockito-core:5.6.0")         // Mockito
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0") // Mockito Kotlin
+
 
     //implementation(libs.firebase.firestore)
 
