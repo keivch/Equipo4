@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_gray">
+    android:background="#525252">
 
     <!-- Toolbar personalizada -->
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:background="@color/dark_gray"
+        android:background="#525252"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,8 @@
         app:navigationIcon="@android:drawable/ic_menu_revert"
         app:tint="@color/orange"
         app:title="Retos"
-        app:titleTextColor="@color/orange" />
+        app:titleTextColor="#FF3D00"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRetos"
@@ -38,9 +39,11 @@
         android:id="@+id/btnAddReto"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:background="@null"
-        android:scaleType="centerInside"
         android:contentDescription="Añadir reto"
+        android:scaleType="centerInside"
         android:src="@drawable/anadir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
