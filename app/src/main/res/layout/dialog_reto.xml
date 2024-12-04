@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:clipChildren="false"
@@ -15,17 +16,13 @@
     <!-- Contenedor de fondo con curva -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:padding="50dp"
+        android:layout_height="241dp"
+        android:layout_gravity="center"
         android:background="@drawable/dialog_background"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:layout_gravity="center">
+        android:padding="50dp">
 
-        <!-- Contenedor circular con imagen -->
-
-
-        <!-- Título -->
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="0dp"
@@ -36,26 +33,27 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:translationY="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Mensaje -->
         <TextView
             android:id="@+id/textViewChallenge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:padding="45dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
+            android:padding="45dp"
             android:text="@string/description"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:paddingVertical="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
