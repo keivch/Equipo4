@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.project1.adapter.ChallengeAdapter
 import com.example.project1.databinding.ActivityRetosBinding
 import com.example.project1.model.Challenge
+import com.example.project1.view.LoginView
 import com.example.project1.viewModel.ChallengeViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,7 +57,7 @@ class ChallengeActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().signOut()
 
             // Inicia la actividad principal y limpia la pila de retroceso
-            val intent = Intent(this, Ventana_home_principal::class.java)
+            val intent = Intent(this, LoginView::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
