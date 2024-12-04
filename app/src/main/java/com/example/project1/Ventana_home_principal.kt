@@ -1,5 +1,6 @@
 package com.example.project1
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,6 +11,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
@@ -24,6 +26,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.lifecycle.ViewModelProvider
 import com.example.project1.model.Challenge
+import com.example.project1.view.LoginView
 import com.example.project1.viewModel.ChallengeViewModel
 
 import kotlinx.coroutines.launch
@@ -47,6 +50,7 @@ class Ventana_home_principal : AppCompatActivity() {
     private var bottleSpinSound: MediaPlayer? = null
     private var lastRotation = 0f
     private var countdownTimer: CountDownTimer? = null  // Variable para controlar el temporizador
+    private var shouldCloseApp = false
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -100,6 +104,25 @@ class Ventana_home_principal : AppCompatActivity() {
 
         // Configurar el temporizador inicial para la cuenta regresiva solo una vez al iniciar la actividad
 
+        onBackPressedDispatcher.addCallback(this, object:OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if(shouldCloseApp){
+                    finishAffinity()
+                }
+            }
+        })
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.toolbar_container, ToolbarFragment())
+            .commit()
+    }
+
+    fun logoutAndCloseApp() {
+        FirebaseAuth.getInstance().signOut()
+        shouldCloseApp = true
+        val intent = Intent(this, LoginView::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
     }
 
     private fun startBottleSpin() {
