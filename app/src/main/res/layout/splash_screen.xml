@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="PICO BOTELLA"
-        android:textColor="#FFA500"
+        android:textColor="#FF3D00"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
