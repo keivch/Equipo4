@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import com.example.project1.model.Pokemon
@@ -22,6 +23,7 @@ import kotlin.random.Random
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import androidx.lifecycle.ViewModelProvider
+import com.example.project1.model.Challenge
 import com.example.project1.viewModel.ChallengeViewModel
 
 import kotlinx.coroutines.launch
@@ -159,7 +161,7 @@ class Ventana_home_principal : AppCompatActivity() {
             viewModel.obtenerRetos()
 
             // Observa los cambios en los retos después de haber llamado a obtenerRetos
-            viewModel.listaRetos.observe(this) { retos ->
+            val RetosObserver = Observer<List<Challenge>> { retos ->
                 if (!retos.isNullOrEmpty()) {
                     // Obtén un reto aleatorio
                     val randomReto = retos.random()
@@ -187,6 +189,9 @@ class Ventana_home_principal : AppCompatActivity() {
                 }
             }
 
+            viewModel.listaRetos.observe(this, RetosObserver)
+
+            viewModel.listaRetos.removeObserver(RetosObserver)
         } else {
             // Manejo de caso en que el usuario no está autenticado
             val dialog = CustomDialog(this@Ventana_home_principal)
