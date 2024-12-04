@@ -5,8 +5,5 @@ import org.junit.Test
 
 class ChallengeActivityTest{
 
-    @Test
-    fun getArrayTest(){
 
-    }
 }
