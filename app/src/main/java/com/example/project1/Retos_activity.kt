@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcherOwner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.project1.adapter.ChallengeAdapter
 import com.example.project1.databinding.ActivityRetosBinding
 import com.example.project1.model.Challenge
-import com.example.project1.model.Reto
 import com.example.project1.viewModel.ChallengeViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ChallengeActivity : AppCompatActivity() {
 
@@ -40,6 +42,19 @@ class ChallengeActivity : AppCompatActivity() {
         viewModel.listaRetos.observe(this){ retos ->
             setupRecyclerView(retos)
         }
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbarRetos)
+
+        setSupportActionBar(toolbar)
+
+        toolbar.setNavigationOnClickListener{
+            // Regresar al home y restaurar audio
+            viewModel.onBackPressed()
+            finish()  // Finaliza la actividad actual
+
+        }
+
+
 
         binding.btnAddReto.setOnClickListener{
             val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_agregar_reto, null)
@@ -64,24 +79,29 @@ class ChallengeActivity : AppCompatActivity() {
                     Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
                 } else {
                     // Crea un nuevo reto
-                    val reto = Challenge(name = nombre, description = description)
+                    val userId = FirebaseAuth.getInstance().currentUser?.uid
 
+                    val reto = Challenge(name = nombre, description = description, userId = userId)
                     viewModel.agregarReto(reto)
-
-
-
-                    // Cierra el diálogo
                     dialog.dismiss()
                 }
             }
         }
 
+
+
+
+
     }
 
-    fun setupRecyclerView(listaRetos: List<Challenge>){
+    fun setupRecyclerView(listaRetos: List<Challenge>) {
+        // Configurar un LayoutManager (por ejemplo, LinearLayoutManager)
+        if (binding.recyclerViewRetos.layoutManager == null) {
+            binding.recyclerViewRetos.layoutManager = LinearLayoutManager(this)
+        }
+
         adapter = ChallengeAdapter(listaRetos, ::borrarReto, ::actualizarReto)
         binding.recyclerViewRetos.adapter = adapter
-
     }
 
     fun borrarReto(id: String){
@@ -90,8 +110,8 @@ class ChallengeActivity : AppCompatActivity() {
 
         // Configura el contenido del diálogo
 
-        val buttonNo = dialogView.findViewById<Button>(R.id.button_no)
-        val buttonYes = dialogView.findViewById<Button>(R.id.button_yes)
+        val buttonNo = dialogView.findViewById<TextView>(R.id.button_no)
+        val buttonYes = dialogView.findViewById<TextView>(R.id.button_yes)
 
         // Crea el AlertDialog
         val dialog = AlertDialog.Builder(this)
@@ -121,8 +141,8 @@ class ChallengeActivity : AppCompatActivity() {
         // Configura las vistas del diálogo
         val editNombre = dialogView.findViewById<EditText>(R.id.edit_nombre)
         val editDescripcion = dialogView.findViewById<EditText>(R.id.edit_descripcion)
-        val buttonCancel = dialogView.findViewById<Button>(R.id.button_cancel)
-        val buttonSave = dialogView.findViewById<Button>(R.id.button_save)
+        val buttonCancel = dialogView.findViewById<TextView>(R.id.button_cancel)
+        val buttonSave = dialogView.findViewById<TextView>(R.id.button_save)
 
         // Precarga los datos actuales del reto en los campos de texto
         editNombre.setText(reto.name)
@@ -151,17 +171,15 @@ class ChallengeActivity : AppCompatActivity() {
             if (nuevoNombre.isEmpty() || nuevaDescripcion.isEmpty()) {
                 Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                // Actualiza el reto con los nuevos valores
+                // Actualiza el reto localmente
                 reto.name = nuevoNombre
                 reto.description = nuevaDescripcion
 
-                // Notifica al adaptador que el ítem ha cambiado
-                adapter.notifyDataSetChanged()
-
-                dialog.dismiss() // Cierra el diálogo después de guardar
+                viewModel.editarReto(reto)
             }
         }
     }
+
 
 
 }

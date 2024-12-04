@@ -4,7 +4,9 @@
     import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
+    import android.widget.Button
     import android.widget.ImageButton
+    import android.widget.ImageView
     import android.widget.TextView
     import androidx.appcompat.view.menu.MenuView.ItemView
     import androidx.cardview.widget.CardView
@@ -24,6 +26,8 @@
             val tvName: TextView = itemView.findViewById(R.id.reto_nombre)
             val tvDescription: TextView = itemView.findViewById(R.id.reto_description)
             val ibtnBorrar: ImageButton = itemView.findViewById(R.id.icon_delete)
+            val ibtnEdit: ImageButton = itemView.findViewById(R.id.icon_edit)
+
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,6 +48,11 @@
             holder.cvReto.setOnClickListener {
                 onUpdateClick(reto)
             }
+
+            holder.ibtnEdit.setOnClickListener{
+                onUpdateClick(reto)
+            }
+
         }
 
         override fun getItemCount(): Int = listaRetos.size

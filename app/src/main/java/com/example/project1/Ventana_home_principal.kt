@@ -154,8 +154,11 @@ class Ventana_home_principal : AppCompatActivity() {
         // Obtén el ID del usuario autenticado
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        if (userId != null)
-            // Observa los cambios en los retos
+        if (userId != null) {
+            // Carga los retos desde el repositorio
+            viewModel.obtenerRetos()
+
+            // Observa los cambios en los retos después de haber llamado a obtenerRetos
             viewModel.listaRetos.observe(this) { retos ->
                 if (!retos.isNullOrEmpty()) {
                     // Obtén un reto aleatorio
@@ -184,10 +187,17 @@ class Ventana_home_principal : AppCompatActivity() {
                 }
             }
 
-            // Carga los retos desde el repositorio
-            viewModel.obtenerRetos()
-
+        } else {
+            // Manejo de caso en que el usuario no está autenticado
+            val dialog = CustomDialog(this@Ventana_home_principal)
+            dialog.setTitle("Error de autenticación")
+            dialog.setMessage("No estás autenticado. Por favor, inicia sesión.")
+            dialog.setCancelable(false)
+            dialog.show()
+        }
     }
+
+
 
 
 
