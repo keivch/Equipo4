@@ -1,6 +1,7 @@
 package com.example.project1.view
 
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageView
@@ -29,6 +30,10 @@ class GameRulesActivity : AppCompatActivity() {
             viewModel.onBackPressed()
             finish()  // Finaliza la actividad actual
         }
+        // Agregar animación al ImageView (por ejemplo, rotación y escala)
+        val ivAnimation: ImageView = findViewById(R.id.iv_animation)
+        val animation = AnimationUtils.loadAnimation(this, R.anim.animacion_triunfo)
+        ivAnimation.startAnimation(animation)
     }
 }
 
