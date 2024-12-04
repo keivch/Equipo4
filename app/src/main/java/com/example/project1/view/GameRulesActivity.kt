@@ -13,6 +13,7 @@ import com.example.project1.viewModel.GameRulesViewModel
 class GameRulesActivity : AppCompatActivity() {
 
     private lateinit var viewModel: GameRulesViewModel
+    var animationPlayed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +31,13 @@ class GameRulesActivity : AppCompatActivity() {
             viewModel.onBackPressed()
             finish()  // Finaliza la actividad actual
         }
-        // Agregar animación al ImageView (por ejemplo, rotación y escala)
+        // Agregar animación al ImageView
         val ivAnimation: ImageView = findViewById(R.id.iv_animation)
-        val animation = AnimationUtils.loadAnimation(this, R.anim.animacion_triunfo)
-        ivAnimation.startAnimation(animation)
+        if (!animationPlayed) { // Verifica si la animación ya se ha reproducido
+            val animation = AnimationUtils.loadAnimation(this, R.anim.animacion_triunfo)
+            ivAnimation.startAnimation(animation)
+            animationPlayed = true // Marca la animación como reproducida
+        }
     }
 }
 

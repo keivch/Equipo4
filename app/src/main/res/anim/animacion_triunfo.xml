@@ -6,7 +6,7 @@
         android:fromDegrees="0"
         android:toDegrees="360"
         android:duration="1500"
-        android:repeatCount="infinite" />
+        android:repeatCount="0" />
 
     <!-- Animación de escala -->
     <scale
@@ -15,7 +15,7 @@
         android:fromYScale="0.5"
         android:toYScale="1.5"
         android:duration="1500"
-        android:repeatCount="infinite"
+        android:repeatCount="0"
         android:pivotX="50%"
         android:pivotY="50%" />
 </set>
