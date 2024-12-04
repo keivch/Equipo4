@@ -106,8 +106,15 @@ class Ventana_home_principal : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object:OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
+                var close = false
                 if(shouldCloseApp){
                     finishAffinity()
+                } else {
+                    Toast.makeText(this@Ventana_home_principal, "Presiona de nuevo para salir", Toast.LENGTH_SHORT).show()
+                    close = true
+                    if(close == true){
+                        logoutAndCloseApp()
+                    }
                 }
             }
         })
